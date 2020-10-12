@@ -1,0 +1,34 @@
+# Gateway configuration
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rental-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rental-gateway
+  template:
+    metadata:
+      labels:
+        app: rental-gateway
+    spec:
+      containers:
+        -
+          image: andrew/gateway_service
+          imagePullPolicy: Never
+          name: rental-gateway
+          ports:
+            -
+              containerPort: 8086
+              name: rental-gateway
+          env:
+            - name: USERS_URL
+              value: "http://rental-users"
+            - name: CARS_URL
+              value: "http://rental-cars"
+            - name: RENTS_URL
+              value: "http://rental-rents"
+            - name: BANK_URL
+              value: "http://rental-payment"

@@ -1,0 +1,12 @@
+# Payment service configuration
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rental-payment
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+  selector:
+    app: rental-payment

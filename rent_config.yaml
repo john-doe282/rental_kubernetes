@@ -1,0 +1,38 @@
+# Rent service configuration
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rental-rents
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rental-rents
+  template:
+    metadata:
+      labels:
+        app: rental-rents
+    spec:
+      containers:
+        -
+          image: andrew/rent_service
+          imagePullPolicy: Never
+          name: rental-rents
+          ports:
+            -
+              containerPort: 8085
+              name: rental-rents
+          env:
+            - name: POSTGRESQL_DB_ENDPOINT
+              value: "jdbc:postgresql://192.168.0.105:5432/"
+            - name: POSTGRESQL_DB_PASSWORD
+              value: "qwerty"
+            - name: POSTGRESQL_DB_USERNAME
+              value: "andrew"
+            - name: USERS_URL
+              value: "http://rental-users"
+            - name: CARS_URL
+              value: "http://rental-cars"
+            - name: BANK_URL
+              value: "http://rental-payment"

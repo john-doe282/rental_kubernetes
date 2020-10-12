@@ -1,0 +1,12 @@
+# User service configuration
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rental-users
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8082
+  selector:
+    app: rental-users

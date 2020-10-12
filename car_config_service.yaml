@@ -1,0 +1,12 @@
+# Car service configuration
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rental-cars
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8084
+  selector:
+    app: rental-cars

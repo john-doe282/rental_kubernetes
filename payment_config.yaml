@@ -1,0 +1,32 @@
+# Payment service configuration
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rental-payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rental-payment
+  template:
+    metadata:
+      labels:
+        app: rental-payment
+    spec:
+      containers:
+        -
+          image: andrew/payment_service
+          imagePullPolicy: Never
+          name: rental-payment
+          ports:
+            -
+              containerPort: 8081
+              name: rental-payment
+          env:
+            - name: POSTGRESQL_DB_ENDPOINT
+              value: "jdbc:postgresql://192.168.0.105:5432/"
+            - name: POSTGRESQL_DB_PASSWORD
+              value: "qwerty"
+            - name: POSTGRESQL_DB_USERNAME
+              value: "andrew"

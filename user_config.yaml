@@ -1,0 +1,34 @@
+# User service configuration
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rental-users
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rental-users
+  template:
+    metadata:
+      labels:
+        app: rental-users
+    spec:
+      containers:
+        -
+          image: andrew/user_service
+          name: rental-users
+          imagePullPolicy: Never
+          ports:
+            -
+              containerPort: 8082
+              name: rental-users
+          env:
+            - name: POSTGRESQL_DB_ENDPOINT
+              value: "jdbc:postgresql://192.168.0.105:5432/"
+            - name: POSTGRESQL_DB_PASSWORD
+              value: "qwerty"
+            - name: POSTGRESQL_DB_USERNAME
+              value: "andrew"
+            - name: BANK_URL
+              value: "http://rental-payment"

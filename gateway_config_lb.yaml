@@ -1,0 +1,16 @@
+# Gateway configuration
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rental-gateway-lb
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8086
+      protocol: TCP
+      targetPort: 8086
+      name: http
+      nodePort: 30032
+  selector:
+    app: rental-gateway

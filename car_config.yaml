@@ -1,0 +1,32 @@
+# Car service configuration
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rental-cars
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rental-cars
+  template:
+    metadata:
+      labels:
+        app: rental-cars
+    spec:
+      containers:
+        -
+          image: andrew/car_service
+          imagePullPolicy: Never
+          name: rental-cars
+          ports:
+            -
+              containerPort: 8084
+              name: rental-cars
+          env:
+            - name: POSTGRESQL_DB_ENDPOINT
+              value: "jdbc:postgresql://192.168.0.105:5432/"
+            - name: POSTGRESQL_DB_PASSWORD
+              value: "qwerty"
+            - name: POSTGRESQL_DB_USERNAME
+              value: "andrew"
