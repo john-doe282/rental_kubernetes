@@ -7,10 +7,12 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 8086
+    - name: rest
+      port: 8086
       protocol: TCP
       targetPort: 8086
-      name: http
-      nodePort: 30032
+    - name: grpc
+      port: 6565
+      targetPort: 6565
   selector:
     app: rental-gateway
